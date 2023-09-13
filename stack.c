@@ -1,4 +1,4 @@
-// Implentation of stack using array in C
+// Implementation of stack using array in C
 #include<stdio.h>
 #include<stdlib.h>
 
