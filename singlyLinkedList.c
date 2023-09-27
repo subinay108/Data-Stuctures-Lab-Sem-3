@@ -12,7 +12,7 @@ Node* createList();
 Node* createNode(int);
 
 void insertAtFirst(Node**, int);
-void insertAtLast(Node*);
+void insertAtLast(Node**, int);
 void insertAfter(Node*);
 void insertBefore(Node*);
 void insertAtPos(Node*);
@@ -23,7 +23,7 @@ void main(){
 	Node* list = createList();
 	int i;
 	for(i = 1; i < 11; i++){
-		insertAtFirst(&list, i);
+		insertAtLast(&list, i);
 	}
 	display(list);
 }
@@ -35,6 +35,19 @@ void display(Node *head){
 		temp = temp->next;
 	}
 	printf("%d\n", temp->data);
+}
+
+void insertAtLast(Node** list, int value){
+	Node* head = *list;
+	// create a node
+	Node* n = createNode(value);
+	// traverse upto last node
+	Node* temp = head;
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	// set last node-> next to newnode
+	temp->next = n;
 }
 
 void insertAtFirst(Node** list, int value){
