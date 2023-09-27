@@ -13,9 +13,9 @@ Node* createNode(int);
 
 void insertAtFirst(Node**, int);
 void insertAtLast(Node**, int);
-void insertAfter(Node*);
-void insertBefore(Node*);
-void insertAtPos(Node*);
+void insertAfter(Node**, Node*, int);
+void insertBefore(Node**, Node*, int);
+void insertAtPos(Node**, int, int);
 
 void display(Node*);
 
@@ -26,6 +26,34 @@ void main(){
 		insertAtLast(&list, i);
 	}
 	display(list);
+}
+
+void insertBefore(Node** list, Node* next_node, int value){
+	Node* head = *list;
+	// create a node
+	Node* n = createNode(value);
+	
+	// set new node->next to next_node
+	n->next = next_node; 
+	
+	// find previous node
+	Node* temp = head;
+	while(temp->next != next_node){
+		temp = temp->next;
+	}
+	
+	// set privious node-> next to new node
+	temp->next = n;
+}
+
+void insertAfter(Node** list, Node* prev_node, int value){
+	Node* head = *list;
+	// create a node
+	Node* n = createNode(value);
+	// set new node->next to next node
+	n->next = prev_node->next; 
+	// set prev_node->next to new node
+	prev_node->next = n;
 }
 
 void display(Node *head){
@@ -41,13 +69,19 @@ void insertAtLast(Node** list, int value){
 	Node* head = *list;
 	// create a node
 	Node* n = createNode(value);
-	// traverse upto last node
-	Node* temp = head;
-	while(temp->next != NULL){
-		temp = temp->next;
+	// if head is null
+	if(head == NULL){
+		*list = n;
+	}else{
+		// traverse upto last node
+		Node* temp = head;
+		while(temp->next != NULL){
+			temp = temp->next;
+		}
+		//	printf("%d\n", temp->data);
+		// set last node-> next to newnode
+		temp->next = n;	
 	}
-	// set last node-> next to newnode
-	temp->next = n;
 }
 
 void insertAtFirst(Node** list, int value){
