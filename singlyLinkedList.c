@@ -1,5 +1,6 @@
 // Implementation of Singly Linked List in C
 #include<stdio.h>
+#include<stdlib.h>
 
 typedef struct Node{
     int data;
@@ -10,7 +11,7 @@ Node* createList();
 
 Node* createNode(int);
 
-void insertAtFirst(int, Node*);
+void insertAtFirst(Node**, int);
 void insertAtLast(Node*);
 void insertAfter(Node*);
 void insertBefore(Node*);
@@ -19,10 +20,10 @@ void insertAtPos(Node*);
 void display(Node*);
 
 void main(){
-	list = createList();
+	Node* list = createList();
 	int i;
-	for(i = 0; i < 10; i++){
-		insertAtFirst(&list,i);
+	for(i = 1; i < 11; i++){
+		insertAtFirst(&list, i);
 	}
 	display(list);
 }
@@ -36,7 +37,7 @@ void display(Node *head){
 	printf("%d\n", temp->data);
 }
 
-void insertAtFirst(Node* list, int value){
+void insertAtFirst(Node** list, int value){
 	Node* head = *list;
 	// create a node
 	Node* n = createNode(value);
@@ -45,7 +46,7 @@ void insertAtFirst(Node* list, int value){
 	n->next = head;
 	
 	// set head to address of new node
-	*head = n;
+	*list = n;
 }
 
 Node* createNode(int value){
