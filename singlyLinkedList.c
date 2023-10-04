@@ -19,7 +19,7 @@ void insertAtPos(Node*);
 
 void display(Node*);
 
-void main(){
+void main() {
 	Node* list = createList();
 	int i;
 	for(i = 1; i < 11; i++){
@@ -28,7 +28,7 @@ void main(){
 	display(list);
 }
 
-void display(Node *head){
+void display(Node *head) {
 	Node* temp = head;
 	while(temp != NULL){
 		printf("%d ", temp->data);
@@ -37,7 +37,7 @@ void display(Node *head){
 	printf("%d\n", temp->data);
 }
 
-void insertAtLast(Node** list, int value){
+void insertAtLast(Node** list, int value) {
 	Node* head = *list;
 	// create a node
 	Node* n = createNode(value);
@@ -50,7 +50,7 @@ void insertAtLast(Node** list, int value){
 	temp->next = n;
 }
 
-void insertAtFirst(Node** list, int value){
+void insertAtFirst(Node** list, int value) {
 	Node* head = *list;
 	// create a node
 	Node* n = createNode(value);
@@ -62,14 +62,14 @@ void insertAtFirst(Node** list, int value){
 	*list = n;
 }
 
-Node* createNode(int value){
+Node* createNode(int value) {
 	Node* n = (Node *) malloc(sizeof(Node));
 	n->data = value;
 	n->next = NULL;
 	return n;
 }
 
-Node* createList(){
+Node* createList() {
 	Node *n = NULL;
 	return n;
 }
