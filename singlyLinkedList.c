@@ -11,12 +11,19 @@ Node* createList();
 
 Node* createNode(int);
 
+// Insertions
 void insertAtFirst(Node**, int);
 void insertAtLast(Node**, int);
 void insertAfter(Node**, Node*, int);
 void insertBefore(Node**, Node*, int);
 void insertAtPos(Node**, int, int);
 
+// Deletions
+void deleteAtFirst(Node**);
+void deleteAtLast(Node**);
+void deleteAtPos(Node**);
+
+// Display
 void display(Node*);
 
 void main(){
@@ -25,7 +32,23 @@ void main(){
 	for(i = 1; i < 11; i++){
 		insertAtLast(&list, i);
 	}
+	deleteAtFirst(&list);
 	display(list);
+}
+
+void deleteAtFirst(Node** list){
+	Node* head = *list;
+	if(head == NULL){
+		printf("List is empty");
+	}
+	else{
+		Node* next = head->next;
+		printf("%p is head\n", head);
+		printf("%d is sizeof head\n", sizeof(head));
+		
+		free(head);
+		head = next;
+	}
 }
 
 void insertBefore(Node** list, Node* next_node, int value){
