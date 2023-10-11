@@ -21,19 +21,22 @@ void insertAtPos(Node**, int, int);
 // Deletions
 void deleteAtFirst(Node**);
 void deleteAtLast(Node**);
-void deleteAtPos(Node**);
+void deleteAtPos(Node**, int);
 
 // Display
 void display(Node*);
 
-void main(){
+int main(){
 	Node* list = createList();
 	int i;
 	for(i = 1; i < 11; i++){
 		insertAtLast(&list, i);
 	}
 	deleteAtFirst(&list);
+	deleteAtLast(&list);
+	deleteAtPos(&list, 1);
 	display(list);
+	return 0;
 }
 
 void deleteAtFirst(Node** list){
@@ -43,12 +46,40 @@ void deleteAtFirst(Node** list){
 	}
 	else{
 		Node* next = head->next;
-		printf("%p is head\n", head);
-		printf("%d is sizeof head\n", sizeof(head));
-		
 		free(head);
-		head = next;
+		*list = next;
 	}
+}
+
+void deleteAtLast(Node** list){
+	Node* head = *list;
+	if(head == NULL){
+		printf("List is empty");
+		return;
+	}
+	Node* h = head;
+	Node* prev;
+	while(h->next != NULL){
+		prev = h;
+		h = h->next;
+	}
+	free(h);
+	prev->next = NULL;
+}
+
+void deleteAtPos(Node** list, int pos){
+	Node* head = *list;
+	Node* h = head;
+	if(pos < 1){
+		printf("Position can't be less than 1");
+	}
+	while(--pos){
+		h = h->next;
+	}
+	if(h == head){
+		*list = head->next;
+	}
+	free(h);
 }
 
 void insertBefore(Node** list, Node* next_node, int value){
@@ -79,13 +110,12 @@ void insertAfter(Node** list, Node* prev_node, int value){
 	prev_node->next = n;
 }
 
-void display(Node *head){
-	Node* temp = head;
-	while(temp != NULL){
-		printf("%d ", temp->data);
-		temp = temp->next;
+void display(Node* head){
+	Node* h = head;
+	while(h != NULL){
+		printf("%d ", h->data);
+		h = h->next;
 	}
-	printf("%d\n", temp->data);
 }
 
 void insertAtLast(Node** list, int value){
