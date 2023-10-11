@@ -4,3 +4,5 @@ Programs added -
 2. Implementation of stack using array in C
 3. Implementation of queue using array in C
 4. Implementation of circular queue using array in C
+5. Implementation of simple singly linked list in C
+6. Implementation of circular singly linked list in C
