@@ -27,6 +27,9 @@ void deleteAtPos(Node**, int);
 // Display
 void display(Node*);
 
+// Search
+int getIndex(Node**, int);
+
 // Get length of a list
 int getLength(Node**);
 
@@ -36,8 +39,8 @@ int main(){
 	while(1){
 		system("cls");
 		printf("Singly Linked List\n1.Insert at First\n2.Insert at Last\n\
-3.Insert at Position\n4.Insert After\n5.Insert Before\n6.Delete at First\n7.Delete at Last\n\
-8.Delete at Position\n9.Display\n0.Exit\nEnter your choice:");
+3.Insert at Position\n4.Delete at First\n5.Delete at Last\n\
+6.Delete at Position\n7.Display\n0.Exit\nEnter your choice:");
 		scanf("%d", &choice);
 		switch(choice){
 			case 1:
@@ -55,36 +58,37 @@ int main(){
 				getch();
 				break;
 			case 3:
-				printf("Enter element: ");
-				scanf("%d", &element);
 				printf("Enter position: ");
 				scanf("%d", &pos);
-				insertAtPos(&list, pos, element);
-				printf("%d added at position %d\nEnter any key to proceed...", element, pos);
+				if(pos < 0 || pos > getLength(&list)){
+					printf("Invalid position");
+				}else{
+					printf("Enter element: ");
+					scanf("%d", &element);
+					insertAtPos(&list, pos, element);
+					printf("%d added at position %d", element, pos);
+				}
+				printf("\nEnter any key to proceed...");
 				getch();
 				break;
 			case 4:
-				break;
-			case 5:
-				break;
-			case 6:
 				deleteAtFirst(&list);
 				printf("\nEnter any key to proceed...");
 				getch();
 				break;
-			case 7:
+			case 5:
 				deleteAtLast(&list);
 				printf("\nEnter any key to proceed...");
 				getch();
 				break;
-			case 8:
+			case 6:
 				printf("Enter position: ");
 				scanf("%d", &pos);
 				deleteAtPos(&list, pos);
 				printf("\nEnter any key to proceed...");
 				getch();
 				break;
-			case 9:
+			case 7:
 				printf("The list is: ");
 				display(list);
 				printf("\nEnter any key to proceed...");
@@ -100,6 +104,34 @@ int main(){
 		}
 	}
 	return 0;
+}
+
+int getLength(Node** list){
+	Node* head = *list;
+	Node* h = head;
+	int length = 0;
+	while(h != NULL){
+		length++;
+		h = h->next;
+	}
+	return length;
+}
+
+int getIndex(Node** list, int value){
+	// returns the position of first occurance of value in the list
+	// if there is no occurance then return -1
+	Node* head = *list;
+	Node* h = head;
+	int position = 1;
+	while(h->data != value){
+		h = h->next;
+		position++;
+		if(h == NULL){
+			position = -1;
+			break;
+		}
+	}
+	return position;
 }
 
 void deleteAtFirst(Node** list){
@@ -130,12 +162,19 @@ void deleteAtLast(Node** list){
 	prev->next = NULL;
 }
 
+
+//This is not working now
+// maybe deleting some node which shouln't be
+// not referencing the list to head
 void deleteAtPos(Node** list, int pos){
 	Node* head = *list;
 	Node* h = head;
 	if(pos < 1){
-		printf("Position can't be less than 1");
+		printf("Position can\'t be less than 1");
+	}else if(pos > getLength(list)){
+		printf("Position can\'t be greater than length");
 	}
+	
 	while(--pos){
 		h = h->next;
 	}
@@ -182,10 +221,15 @@ void display(Node* head){
 }
 
 void insertAtPos(Node** list, int pos, int value){
+	// if position is negative or greater than length then return
+	if(pos < 0 || pos > getLength(list)){
+		return;
+	}
+	
 	Node* head = *list;
 	// if position is 0
 	if(pos == 0){
-		insertAtFirst(list, pos, value);
+		insertAtFirst(list, value);
 		return;
 	}
 	// position other than 0
@@ -196,6 +240,7 @@ void insertAtPos(Node** list, int pos, int value){
 	}
 	
 }
+
 void insertAtLast(Node** list, int value){
 	Node* head = *list;
 	// create a node
