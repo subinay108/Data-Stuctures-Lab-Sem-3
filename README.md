@@ -8,3 +8,4 @@ Programs added -
 6. Implementation of circular singly linked list in C
 7. Bubble Sort
 8. Selection Sort
+9. Insertion Sort
