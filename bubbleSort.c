@@ -47,7 +47,6 @@ void bubbleSort(int arr[], int n){
 			break;
 		}
 	}
-	n_comps++;
 	
 	printf("\nArray after sorting: ");
 	for(i = 0; i < n; i++){
