@@ -20,7 +20,7 @@ void insertBefore(Node**, Node*, int);
 void insertAtPos(Node**, int, int);
 
 // Deletions
-void deleteAtFirst(Node**);
+int deleteAtFirst(Node**);
 void deleteAtLast(Node**);
 void deleteAtPos(Node**, int);
 
@@ -72,12 +72,21 @@ int main(){
 				getch();
 				break;
 			case 4:
-				deleteAtFirst(&list);
+				if(getLength(&list)){
+					element = deleteAtFirst(&list);
+					printf("%d is deleted from first.", element);
+				}else{
+					printf("The list is empty.");
+				}
 				printf("\nEnter any key to proceed...");
 				getch();
 				break;
 			case 5:
-				deleteAtLast(&list);
+				if(getLength(&list)){
+					deleteAtLast(&list);	
+				}else{
+					printf("The list is empty.");
+				}
 				printf("\nEnter any key to proceed...");
 				getch();
 				break;
@@ -95,6 +104,7 @@ int main(){
 				getch();
 				break;
 			case 0:
+				printf("Good Bye %c", 1);
 				exit(0);
 				break;
 			default:
@@ -134,15 +144,18 @@ int getIndex(Node** list, int value){
 	return position;
 }
 
-void deleteAtFirst(Node** list){
+int deleteAtFirst(Node** list){
+	int deletedElement;
 	Node* head = *list;
 	if(head == NULL){
 		printf("List is empty");
 	}
 	else{
 		Node* next = head->next;
+		deletedElement = head->data;
 		free(head);
 		*list = next;
+		return deletedElement;
 	}
 }
 
